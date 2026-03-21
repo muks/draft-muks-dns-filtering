@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+     which is available here: http://xml.resource.org. -->
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs),
+     please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+     (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<?rfc tocappendix="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="3"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<?rfc comments="no" ?>
+<?rfc inline="yes" ?>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="exp" docName="draft-muks-dns-filtering-00" ipr="trust200902" submissionType="IETF" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
+  <!-- xml2rfc v2v3 conversion 3.31.0 -->
+  <front>
+    <title>EDNS options for filtered responses</title>
+    <seriesInfo name="Internet-Draft" value="draft-muks-dns-filtering-00"/>
+    <author fullname="Mukund Sivaraman" initials="M." surname="Sivaraman">
+      <organization>Banu Systems Private Limited</organization>
+      <address>
+        <postal>
+          <street>6001 Beach Road, #19-09, Golden Mile Tower</street>
+          <code>199589</code>
+          <country>SG</country>
+        </postal>
+        <email>muks@banu.com</email>
+        <uri>https://banu.com/</uri>
+      </address>
+    </author>
+    <date/>
+    <!-- Meta-data Declarations -->
+
+    <area>Operations and Management Area</area>
+    <workgroup>Internet Engineering Task Force</workgroup>
+    <!-- <keyword>dns</keyword> -->
+
+    <abstract>
+
+      <t>This memo documents EDNS options, EDNS Extended DNS Errors
+      INFO-CODE values, and methods to be used when returning filtered,
+      blocked, or censored DNS responses. It complements the information
+      provided in EDNS Extended DNS Error options <xref
+      target="RFC8914"/>.</t>
+
+    </abstract>
+
+  </front>
+  <middle>
+
+    <section anchor="sec_intro">
+
+      <name>Introduction</name>
+
+      <t>Some DNS nameservers return forged answers with different IP
+      addresses when they filter, block, or censor access to an internet
+      domain name. A service is typically setup to run at the forged
+      address and return information about the filtering that was
+      performed.</t>
+
+      <t>This practice causes transport security-related errors at
+      clients, such as the case where a HTTPS server serving at the
+      forged answer's address does not have a valid TLS certificate
+      configured for the domain name. A security error about a
+      certificate mismatch is displayed by the web browser.</t>
+
+      <t>This draft introduces EDNS options <xref target="RFC6891"/> for
+      nameservers to provide more information to clients about the
+      filtering as part of the DNS response itself, making the need to
+      return forged answers unnecessary when domain names are
+      filtered. By using these options instead of forged answers,
+      security errors due to forged answers may be avoided at clients,
+      and the information provided in these new EDNS options may be used
+      to diagnose filtering or contact administrators of the DNS
+      nameservers that performed filtering.</t>
+
+    </section>
+
+    <section>
+
+      <name>Requirements notation</name>
+
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+      "MAY", and "OPTIONAL" in this document are to be interpreted as
+      described in <xref target="RFC2119"/> <xref target="RFC8174"/>
+      when, and only when, they appear in all capitals, as shown
+      here.</t>
+
+    </section>
+
+    <section anchor="sec_filtering_contact">
+
+      <name>FILTERING-CONTACT EDNS option</name>
+
+      <t>When DNS queries cause filtering to be performed by nameservers
+      and negative responses to be returned due to it, the nameserver
+      MAY return zero or more FILTERING-CONTACT EDNS options in
+      responses with contact information of the party that performed the
+      filtering.</t>
+
+      <t>DNS nameservers MAY generate these options as described
+      in <xref target="sec_nameserver_behavior"/>. DNS clients MAY use
+      the information in these options as described in <xref
+      target="sec_client_behavior"/>.</t>
+
+      <t>The EDNS OPTION-CODE of FILTERING-CONTACT is provided in <xref
+      target="sec_iana"/>. The OPTION-DATA contains a single contact URI
+      using a contact URI scheme listed in <xref
+      target="sec_iana"/>.</t>
+
+    </section>
+
+    <section anchor="sec_filtering_organization">
+
+      <name>FILTERING-ORGANIZATION EDNS option</name>
+
+      <t>When DNS queries cause filtering to be performed by nameservers
+      and negative responses to be returned due to it, the nameserver
+      MAY return zero or more FILTERING-ORGANIZATION EDNS options in
+      responses with the name of the organization that performed the
+      filtering.</t>
+
+      <t>DNS nameservers MAY generate these options as described
+      in <xref target="sec_nameserver_behavior"/>. DNS clients MAY use
+      the information in these options as described in <xref
+      target="sec_client_behavior"/>.</t>
+
+      <t>The EDNS OPTION-CODE of FILTERING-ORGANIZATION is provided in
+      <xref target="sec_iana"/>. The OPTION-DATA contains the name of
+      the organization that performed the filtering. The language used
+      must match that specified in the EDE-EXTRA-TEXT-LANGUAGE EDNS
+      option if the latter option is also included.</t>
+
+    </section>
+
+    <section anchor="sec_ede_extra_text_language">
+
+      <name>EDE-EXTRA-TEXT-LANGUAGE EDNS option</name>
+
+      <t>This option specifies the language that is used in the
+      EXTRA-TEXT field of EDNS Extended DNS Error options in the same
+      DNS message. It is not limited to DNS filtering, but may be used
+      in any DNS message that contains EDNS Extended DNS Error options.
+      There MAY be zero or one EDE-EXTRA-TEXT-LANGUAGE EDNS option in a
+      message.</t>
+
+      <t>If a human-readable message is generated in the EXTRA-TEXT
+      field of EDNS Extended DNS Error options, the nameserver MAY also
+      include an EDE-EXTRA-TEXT-LANGUAGE EDNS option in the response. If
+      the EDE-EXTRA-TEXT-LANGUAGE EDNS option is included, the language
+      in its option data MUST match the language used in the EXTRA-TEXT
+      field of the EDNS Extended DNS Error option.</t>
+
+      <t>The EDNS OPTION-CODE of EDE-EXTRA-TEXT-LANGUAGE is provided in
+      <xref target="sec_iana"/>. The OPTION-DATA MUST contain a language
+      tag as described in <xref target="RFC5646" />.</t>
+
+    </section>
+
+    <section anchor="sec_nameserver_behavior">
+
+      <name>DNS nameserver behavior</name>
+
+      <t>When DNS nameservers filter/block/censor queries to domain
+      names, it is RECOMMENDED that they do not return forged positive
+      answers (e.g., containing a different IP address) to filtered
+      queries, but instead return negative responses (NODATA or
+      NXDOMAIN) containing an EDNS Extended DNS Error option <xref
+      target="RFC8914" /> with corresponding INFO-CODE accurately
+      indicating the kind of filtering that was performed.</t>
+
+      <t>When such negative reponses are returned as a result of DNS
+      filtering, DNS nameservers MAY include in DNS responses zero or
+      more FILTERING-CONTACT EDNS options, and a FILTERING-ORGANIZATION
+      EDNS option to provide information about the party that performed
+      the filtering.</t>
+
+      <t>The nameserver MAY return a human-readable message describing
+      the filtering action that was performed in the EXTRA-TEXT field of
+      the EDNS Extended DNS Error option. If a human-readable message is
+      generated in the EXTRA-TEXT field, the nameserver MAY also include
+      an EDE-EXTRA-TEXT-LANGUAGE EDNS option in the response.</t>
+
+    </section>
+
+    <section anchor="sec_client_behavior">
+
+      <name>DNS client behavior</name>
+
+      <t>DNS clients do not have to specify anything in their queries to
+      nameservers to receive DNS filtering-related
+      information. Nameservers would automatically return DNS
+      filtering-related information in EDNS responses if they are setup
+      to do so.</t>
+
+      <t>When clients query DNS nameservers, they may receive DNS
+      filtering-related information as part of the nameserver's
+      responses. This information may be contained in the EDNS options
+      described in this draft, as well as EDNS Extended DNS Error option
+      fields (INFO-CODE and EXTRA-TEXT) <xref target="RFC8914" />.</t>
+
+      <t>It is strongly RECOMMENDED that clients use DNS transport
+      security protocols to query Privacy-enabling DNS servers as
+      defined in <xref target="RFC9499" /> to protect the authenticity
+      and integrity during transport of the DNS answer as well as the
+      DNS filtering-related information that may be contained in it.</t>
+
+      <t>DNS clients may receive zero or more FILTERING-CONTACT EDNS
+      options in reponses. DNS clients MAY make use of the information
+      in these options as they would like to. An example may be to
+      display the contact information in a dialog message with
+      hyperlinks, so that users may contact filtering parties.</t>
+
+      <t>DNS clients may receive zero or more FILTERING-ORGANIZATION
+      EDNS options in reponses. DNS clients MAY make use of the
+      information in the first such EDNS option in the OPT RR as they
+      would like to, and ignore any other FILTERING-ORGANIZATION
+      options. An example may be to display the contact information in a
+      dialog message with hyperlinks, so that users may contact
+      filtering parties.</t>
+
+    </section>
+
+    <section>
+
+      <name>Security considerations</name>
+
+      <t>It is strongly RECOMMENDED that clients use DNS transport
+      security protocols to query Privacy-enabling DNS servers as
+      defined in <xref target="RFC9499"/> to protect the authenticity
+      and integrity during transport of the DNS answer as well as the
+      DNS filtering-related information that may be contained in it.</t>
+
+      <t>TBD: Any other details that the dnsop WG and authors of
+      draft-ietf-dnsop-structured-dns-error want to include.</t>
+
+    </section>
+
+    <section anchor="sec_iana">
+
+      <name>IANA considerations</name>
+
+      <t>IANA is requested to allocate the following code points in the
+      "DNS EDNS0 Option Codes (OPT)" registry in the "Domain Name System
+      (DNS) Parameters" registry group.</t>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TBD</td>
+            <td>FILTERING-CONTACT</td>
+            <td>TBD</td>
+            <td>See <xref target="sec_filtering_contact"/>.</td>
+          </tr>
+          <tr>
+            <td>TBD</td>
+            <td>FILTERING-ORGANIZATION</td>
+            <td>TBD</td>
+            <td>See <xref target="sec_filtering_organization"/>.</td>
+          </tr>
+          <tr>
+            <td>TBD</td>
+            <td>EDE-EXTRA-TEXT-LANGUAGE</td>
+            <td>TBD</td>
+            <td>See <xref target="sec_ede_extra_text_language"/>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t>IANA is requested to allocate the following code points in the
+      "Extended DNS Error Codes" registry in the "Domain Name System
+      (DNS) Parameters" registry group.</t>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>INFO-CODE</th>
+            <th>Purpose</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TBD</td>
+            <td>TBD</td>
+            <td>TBD</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t>TBD: Add request for registry for contact URI schemes.</t>
+
+    </section>
+
+  </middle>
+  <back>
+    <references>
+      <name>References</name>
+      <references>
+        <name>Normative references</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6891.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8914.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9499.xml"/>
+      </references>
+    </references>
+  </back>
+</rfc>
