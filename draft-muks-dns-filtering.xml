@@ -37,7 +37,7 @@
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="exp" docName="draft-muks-dns-filtering-00" ipr="trust200902" submissionType="IETF" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
   <!-- xml2rfc v2v3 conversion 3.31.0 -->
   <front>
-    <title>EDNS options for filtered responses</title>
+    <title>EDNS options for filtering information</title>
     <seriesInfo name="Internet-Draft" value="draft-muks-dns-filtering-00"/>
     <author fullname="Mukund Sivaraman" initials="M." surname="Sivaraman">
       <organization>Banu Systems Private Limited</organization>
@@ -61,10 +61,10 @@
     <abstract>
 
       <t>This memo documents EDNS options, EDNS Extended DNS Errors
-      INFO-CODE values, and methods to be used when returning filtered,
-      blocked, or censored DNS responses. It complements the information
-      provided in EDNS Extended DNS Error options <xref
-      target="RFC8914"/>.</t>
+      INFO-CODE values, and methods that can be used to return
+      information about filtered, blocked, or censored DNS responses. It
+      complements the information provided in EDNS Extended DNS Error
+      options <xref target="RFC8914"/>.</t>
 
     </abstract>
 
