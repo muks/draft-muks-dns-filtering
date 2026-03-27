@@ -299,27 +299,6 @@
         </tbody>
       </table>
 
-      <t>IANA is requested to allocate the following code points in the
-      "Extended DNS Error Codes" registry in the "Domain Name System
-      (DNS) Parameters" registry group.</t>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>INFO-CODE</th>
-            <th>Purpose</th>
-            <th>Reference</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>TBD</td>
-            <td>TBD</td>
-            <td>TBD</td>
-          </tr>
-        </tbody>
-      </table>
-
     </section>
 
     <section anchor="sec_acknowledgements">
