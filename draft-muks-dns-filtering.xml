@@ -129,8 +129,8 @@
 
       <t>The EDNS OPTION-CODE of FILTERING-CONTACT is provided in <xref
       target="sec_iana"/>. The OPTION-DATA contains a single contact URI
-      using a contact URI scheme listed in <xref
-      target="sec_iana"/>.</t>
+      using a contact URI scheme listed in TBD: add a link to the
+      contact URI scheme registry.</t>
 
     </section>
 
@@ -320,7 +320,18 @@
         </tbody>
       </table>
 
-      <t>TBD: Add request for registry for contact URI schemes.</t>
+    </section>
+
+    <section anchor="sec_acknowledgements">
+
+      <name>Acknowledgements</name>
+
+      <t>The FILTERING-CONTACT, FILTERING-ORGANIZATION, and
+      EDE-EXTRA-TEXT-LANGUAGE EDNS options are based on the "c", "o",
+      and "l" JSON fields respectively as listed in Section <xref
+      target="I-D.ietf-dnsop-structured-dns-error" section="4"
+      sectionFormat="bare">I-JSON in EXTRA-TEXT Field</xref> of <xref
+      target="I-D.ietf-dnsop-structured-dns-error" />.</t>
 
     </section>
 
@@ -336,6 +347,10 @@
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8914.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9499.xml"/>
+      </references>
+      <references>
+        <name>Informative references</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-structured-dns-error.xml"/>
       </references>
     </references>
   </back>
