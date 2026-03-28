@@ -119,8 +119,8 @@
       <t>When DNS queries cause filtering to be performed by nameservers
       and negative responses to be returned due to it, the nameserver
       MAY return zero or more FILTERING-CONTACT EDNS options in
-      responses with contact information of the party that performed the
-      filtering.</t>
+      responses containing contact information of the party that
+      performed the filtering.</t>
 
       <t>DNS nameservers MAY generate these options as described
       in <xref target="sec_nameserver_behavior"/>. DNS clients MAY use
@@ -141,8 +141,8 @@
       <t>When DNS queries cause filtering to be performed by nameservers
       and negative responses to be returned due to it, the nameserver
       MAY return zero or more FILTERING-ORGANIZATION EDNS options in
-      responses with the name of the organization that performed the
-      filtering.</t>
+      responses containing the name of the organization that performed
+      the filtering.</t>
 
       <t>DNS nameservers MAY generate these options as described
       in <xref target="sec_nameserver_behavior"/>. DNS clients MAY use
