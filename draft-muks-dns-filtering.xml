@@ -281,19 +281,19 @@
           <tr>
             <td>TBD</td>
             <td>FILTERING-CONTACT</td>
-            <td>TBD</td>
+            <td>Optional</td>
             <td>See <xref target="sec_filtering_contact"/>.</td>
           </tr>
           <tr>
             <td>TBD</td>
             <td>FILTERING-ORGANIZATION</td>
-            <td>TBD</td>
+            <td>Optional</td>
             <td>See <xref target="sec_filtering_organization"/>.</td>
           </tr>
           <tr>
             <td>TBD</td>
             <td>EDE-EXTRA-TEXT-LANGUAGE</td>
-            <td>TBD</td>
+            <td>Optional</td>
             <td>See <xref target="sec_ede_extra_text_language"/>.</td>
           </tr>
         </tbody>
