@@ -112,6 +112,30 @@
 
     </section>
 
+    <section anchor="sec_ede_extra_text_language">
+
+      <name>EDE-EXTRA-TEXT-LANGUAGE EDNS option</name>
+
+      <t>This option specifies the language that is used in the
+      EXTRA-TEXT field of EDNS Extended DNS Error options in the same
+      DNS message. It is not limited to DNS filtering, but may be used
+      in any DNS message that contains EDNS Extended DNS Error options.
+      There MAY be zero or one EDE-EXTRA-TEXT-LANGUAGE EDNS option in a
+      message.</t>
+
+      <t>If a human-readable message is generated in the EXTRA-TEXT
+      field of EDNS Extended DNS Error options, the nameserver MAY also
+      include an EDE-EXTRA-TEXT-LANGUAGE EDNS option in the response. If
+      the EDE-EXTRA-TEXT-LANGUAGE EDNS option is included, the language
+      in its option data MUST match the language used in the EXTRA-TEXT
+      field of the EDNS Extended DNS Error option.</t>
+
+      <t>The EDNS OPTION-CODE of EDE-EXTRA-TEXT-LANGUAGE is provided in
+      <xref target="sec_iana"/>. The OPTION-DATA MUST contain a language
+      tag as described in <xref target="RFC5646" />.</t>
+
+    </section>
+
     <section anchor="sec_filtering_contact">
 
       <name>FILTERING-CONTACT EDNS option</name>
@@ -154,30 +178,6 @@
       the organization that performed the filtering. The language used
       must match that specified in the EDE-EXTRA-TEXT-LANGUAGE EDNS
       option if the latter option is also included.</t>
-
-    </section>
-
-    <section anchor="sec_ede_extra_text_language">
-
-      <name>EDE-EXTRA-TEXT-LANGUAGE EDNS option</name>
-
-      <t>This option specifies the language that is used in the
-      EXTRA-TEXT field of EDNS Extended DNS Error options in the same
-      DNS message. It is not limited to DNS filtering, but may be used
-      in any DNS message that contains EDNS Extended DNS Error options.
-      There MAY be zero or one EDE-EXTRA-TEXT-LANGUAGE EDNS option in a
-      message.</t>
-
-      <t>If a human-readable message is generated in the EXTRA-TEXT
-      field of EDNS Extended DNS Error options, the nameserver MAY also
-      include an EDE-EXTRA-TEXT-LANGUAGE EDNS option in the response. If
-      the EDE-EXTRA-TEXT-LANGUAGE EDNS option is included, the language
-      in its option data MUST match the language used in the EXTRA-TEXT
-      field of the EDNS Extended DNS Error option.</t>
-
-      <t>The EDNS OPTION-CODE of EDE-EXTRA-TEXT-LANGUAGE is provided in
-      <xref target="sec_iana"/>. The OPTION-DATA MUST contain a language
-      tag as described in <xref target="RFC5646" />.</t>
 
     </section>
 
@@ -280,6 +280,12 @@
         <tbody>
           <tr>
             <td>TBD</td>
+            <td>EDE-EXTRA-TEXT-LANGUAGE</td>
+            <td>Optional</td>
+            <td>See <xref target="sec_ede_extra_text_language"/>.</td>
+          </tr>
+          <tr>
+            <td>TBD</td>
             <td>FILTERING-CONTACT</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_contact"/>.</td>
@@ -289,12 +295,6 @@
             <td>FILTERING-ORGANIZATION</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_organization"/>.</td>
-          </tr>
-          <tr>
-            <td>TBD</td>
-            <td>EDE-EXTRA-TEXT-LANGUAGE</td>
-            <td>Optional</td>
-            <td>See <xref target="sec_ede_extra_text_language"/>.</td>
           </tr>
         </tbody>
       </table>
