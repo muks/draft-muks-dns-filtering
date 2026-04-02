@@ -143,7 +143,7 @@
       <t>When DNS queries cause filtering to be performed by nameservers
       and negative responses to be returned due to it, the nameserver
       MAY return zero or more FILTERING-CONTACT EDNS options in
-      responses containing contact information of the party that
+      responses, containing contact information of the party that
       performed the filtering.</t>
 
       <t>DNS nameservers MAY generate these options as described
@@ -152,9 +152,10 @@
       target="sec_client_behavior"/>.</t>
 
       <t>The EDNS OPTION-CODE of FILTERING-CONTACT is provided in <xref
-      target="sec_iana"/>. The OPTION-DATA contains a single contact URI
-      using a contact URI scheme listed in TBD: add a link to the
-      contact URI scheme registry.</t>
+      target="sec_iana"/>. The OPTION-DATA is a UTF-8 encoded string
+      (that is not nul-terminated) containing a contact URI using a
+      contact URI scheme listed in TBD: add a link to the contact URI
+      scheme registry.</t>
 
     </section>
 
@@ -164,20 +165,45 @@
 
       <t>When DNS queries cause filtering to be performed by nameservers
       and negative responses to be returned due to it, the nameserver
-      MAY return zero or more FILTERING-ORGANIZATION EDNS options in
-      responses containing the name of the organization that performed
+      MAY return zero or one FILTERING-ORGANIZATION EDNS option in
+      responses, containing the name of the organization that performed
       the filtering.</t>
 
-      <t>DNS nameservers MAY generate these options as described
-      in <xref target="sec_nameserver_behavior"/>. DNS clients MAY use
-      the information in these options as described in <xref
+      <t>DNS nameservers MAY generate this option as described in <xref
+      target="sec_nameserver_behavior"/>. DNS clients MAY use the
+      information in this option as described in <xref
       target="sec_client_behavior"/>.</t>
 
       <t>The EDNS OPTION-CODE of FILTERING-ORGANIZATION is provided in
-      <xref target="sec_iana"/>. The OPTION-DATA contains the name of
-      the organization that performed the filtering. The language used
-      must match that specified in the EDE-EXTRA-TEXT-LANGUAGE EDNS
-      option if the latter option is also included.</t>
+      <xref target="sec_iana"/>. The OPTION-DATA is a UTF-8 encoded
+      string (that is not nul-terminated) containing the name of the
+      organization that performed the filtering. The language used must
+      match that specified in the EDE-EXTRA-TEXT-LANGUAGE EDNS option if
+      the latter option is also included.</t>
+
+    </section>
+
+    <section anchor="sec_filtering_db">
+
+      <name>FILTERING-DB EDNS option</name>
+
+      <t>When DNS queries cause filtering to be performed by nameservers
+      and negative responses to be returned due to it, the nameserver
+      MAY return zero or one FILTERING-DB EDNS option in responses,
+      containing the identifier, name, or description of the filtering
+      database against which a matched query caused the filtering to
+      occur.</t>
+
+      <t>DNS nameservers MAY generate this option as described in <xref
+      target="sec_nameserver_behavior"/>. DNS clients MAY use the
+      information in this option as described in <xref
+      target="sec_client_behavior"/>.</t>
+
+      <t>The EDNS OPTION-CODE of FILTERING-DB is provided in <xref
+      target="sec_iana"/>. The OPTION-DATA is a UTF-8 encoded string
+      (that is not nul-terminated) containing the identifier, name, or
+      description of the filtering database against which a matched
+      query caused the filtering to occur.</t>
 
     </section>
 
@@ -295,6 +321,12 @@
             <td>FILTERING-ORGANIZATION</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_organization"/>.</td>
+          </tr>
+          <tr>
+            <td>TBD</td>
+            <td>FILTERING-DB</td>
+            <td>Optional</td>
+            <td>See <xref target="sec_filtering_db"/>.</td>
           </tr>
         </tbody>
       </table>
