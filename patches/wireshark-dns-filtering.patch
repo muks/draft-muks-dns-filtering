@@ -1,0 +1,115 @@
+diff -ru wireshark-4.6.4.orig/epan/dissectors/packet-dns.c wireshark-4.6.4/epan/dissectors/packet-dns.c
+--- wireshark-4.6.4.orig/epan/dissectors/packet-dns.c	2026-02-26 01:45:46.000000000 +0800
++++ wireshark-4.6.4/epan/dissectors/packet-dns.c	2026-04-23 15:06:17.736959557 +0800
+@@ -531,6 +531,10 @@
+ static int hf_dns_opt_zoneversion_type;
+ static int hf_dns_opt_zoneversion_soa;
+ static int hf_dns_opt_zoneversion_version;
++static int hf_dns_opt_ede_extra_text_language;
++static int hf_dns_opt_filtering_contact;
++static int hf_dns_opt_filtering_organization;
++static int hf_dns_opt_filtering_db;
+ static int hf_dns_nsec3_algo;
+ static int hf_dns_nsec3_flags;
+ static int hf_dns_nsec3_flag_optout;
+@@ -892,6 +896,10 @@
+ #define O_EXT_ERROR     15              /* Extended DNS Errors (RFC8914) */
+ #define O_REPORT_CHANNEL 18             /* DNS Error Reporting (RFC9567) */
+ #define O_ZONEVERSION   19              /* DNS Zone Version (ZONEVERSION) Option (RFC9660) */
++#define O_EDE_EXTRA_TEXT_LANGUAGE 65102 /* Extended DNS Error EXTRA-TEXT language */
++#define O_FILTERING_CONTACT 65103       /* FILTERING-CONTACT */
++#define O_FILTERING_ORGANIZATION 65104  /* FILTERING-ORGANIZATION */
++#define O_FILTERING_DB 65105            /* FILTERING-DB */
+ 
+ #define MIN_DNAME_LEN    2              /* minimum domain name length */
+ 
+@@ -1359,6 +1367,10 @@
+   {O_EXT_ERROR,   "Extended DNS Error"},
+   {O_REPORT_CHANNEL, "Report-Channel"},
+   {O_ZONEVERSION, "Zone Version"},
++  {O_EDE_EXTRA_TEXT_LANGUAGE, "EDE-EXTRA-TEXT-LANGUAGE"},
++  {O_FILTERING_CONTACT, "FILTERING-CONTACT"},
++  {O_FILTERING_ORGANIZATION, "FILTERING-ORGANIZATION"},
++  {O_FILTERING_DB, "FILTERING-DB"},
+   {0,             NULL}
+  };
+ /* DNS-Based Authentication of Named Entities (DANE) Parameters
+@@ -1545,7 +1557,10 @@
+   {    27,    27, "Unsupported NSEC3 Iterations Value" },
+   {    28,    28, "Unable to conform to policy"  },
+   {    29,    29, "Synthesized"                  },
+-  {    30, 49151, "Unassigned"                   },
++  {    30,    30, "Invalid Query Type"           },
++  {    31,    31, "Rate Limited"                 },
++  {    32,    32, "Over Quota"                   },
++  {    33, 49151, "Unassigned"                   },
+   { 49152, 65535, "Reserved for Private Use"     },
+   {     0,     0, NULL                           } };
+ 
+@@ -3573,6 +3588,39 @@
+             }
+           }
+           break;
++
++          case O_EDE_EXTRA_TEXT_LANGUAGE:
++          {
++            proto_tree_add_item(rropt_tree, hf_dns_opt_ede_extra_text_language, tvb, cur_offset, optlen, ENC_UTF_8);
++            cur_offset += optlen;
++            rropt_len  -= optlen;
++          }
++          break;
++
++          case O_FILTERING_CONTACT:
++          {
++            proto_tree_add_item(rropt_tree, hf_dns_opt_filtering_contact, tvb, cur_offset, optlen, ENC_UTF_8);
++            cur_offset += optlen;
++            rropt_len  -= optlen;
++          }
++          break;
++
++          case O_FILTERING_ORGANIZATION:
++          {
++            proto_tree_add_item(rropt_tree, hf_dns_opt_filtering_organization, tvb, cur_offset, optlen, ENC_UTF_8);
++            cur_offset += optlen;
++            rropt_len  -= optlen;
++          }
++          break;
++
++          case O_FILTERING_DB:
++          {
++            proto_tree_add_item(rropt_tree, hf_dns_opt_filtering_db, tvb, cur_offset, optlen, ENC_UTF_8);
++            cur_offset += optlen;
++            rropt_len  -= optlen;
++          }
++          break;
++
+           default:
+           {
+             cur_offset += optlen;
+@@ -7483,6 +7531,26 @@
+         FT_BYTES, BASE_NONE, NULL, 0x0,
+         NULL, HFILL }},
+ 
++    { &hf_dns_opt_ede_extra_text_language,
++      { "Language", "dns.opt.ede_extra_text_language",
++        FT_STRING, BASE_NONE, NULL, 0x0,
++        NULL, HFILL }},
++
++    { &hf_dns_opt_filtering_contact,
++      { "Contact", "dns.opt.filtering_contact",
++        FT_STRING, BASE_NONE, NULL, 0x0,
++        NULL, HFILL }},
++
++    { &hf_dns_opt_filtering_organization,
++      { "Organization", "dns.opt.filtering_organization",
++        FT_STRING, BASE_NONE, NULL, 0x0,
++        NULL, HFILL }},
++
++    { &hf_dns_opt_filtering_db,
++      { "Database", "dns.opt.filtering_db",
++        FT_STRING, BASE_NONE, NULL, 0x0,
++        NULL, HFILL }},
++
+     { &hf_dns_count_questions,
+       { "Questions", "dns.count.queries",
+         FT_UINT16, BASE_DEC, NULL, 0x0,
