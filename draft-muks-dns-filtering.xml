@@ -407,7 +407,7 @@ Domain Name System (response)
       <t>A nameserver MUST NOT include the EDE-EXTRA-TEXT-LANGUAGE,
       FILTERING-CONTACT, FILTERING-ORGANIZATION, and FILTERING-DB EDNS
       options as well as Structured Error Data for Filtered DNS JSON in
-      a single response. It should pick one, and the choice can be made
+      a single response. It must pick one, and the choice can be made
       based on whether the DNS client's query contained the Structured
       DNS Error option.</t>
 
