@@ -280,8 +280,9 @@
       FILTERING-CONTACT, FILTERING-ORGANIZATION, and FILTERING-DB EDNS
       options. This example was taken from the DNS responses generated
       in one of Loop's system tests. It was generated in response to RPZ
-      processing which returned an NXDOMAIN RCODE because it was blocked
-      due to response policy.</t>
+      processing <xref target="I-D.vixie-dnsop-dns-rpz" /> which
+      returned an NXDOMAIN RCODE because the name being queried was
+      blocked due to response policy.</t>
 
       <sourcecode>
 Domain Name System (response)
@@ -504,6 +505,7 @@ Domain Name System (response)
       <references>
         <name>Informative references</name>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-dnsop-structured-dns-error-19.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-vixie-dnsop-dns-rpz-00.xml"/>
       </references>
     </references>
   </back>
