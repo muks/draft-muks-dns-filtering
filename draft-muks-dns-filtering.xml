@@ -381,6 +381,36 @@ Domain Name System (response)
       <t>TBD: Replace OPTION-CODEs in the example from the experimental
       use space with IANA assigned ones when they are available.</t>
 
+      <t>For completeness, here is a snippet from a Loop
+      <tt>named.conf</tt> configuration file, that was used to configure
+      the values returned in the filtering options in the response shown
+      above:</t>
+
+      <sourcecode>
+options {
+    // [snip...]
+
+    edns-filtering-info-contacts {
+        "mailto:support@example.com";
+        "sips:hello@example.com";
+    };
+
+    edns-filtering-info-organization "The Example Organization";
+
+    ede-extra-text-language "en";
+
+    response-policy {
+        // The default intent is blocking.
+        zone "rpz1.example.com" filtering-db "Government 1";
+        zone "rpz2.example.com" intent blocking;
+        zone "rpz3.example.com" intent censoring;
+        zone "rpz4.example.com" intent filtering;
+    } recursive-only no;
+
+    // [snip...]
+};
+      </sourcecode>
+
     </section>
 
     <section>
