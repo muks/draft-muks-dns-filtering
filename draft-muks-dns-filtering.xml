@@ -385,6 +385,36 @@ Domain Name System (response)
 
     <section>
 
+      <name>Interoperability with Structured Error Data for Filtered DNS
+      JSON</name>
+
+      <t>When Structured Error Data for Filtered DNS JSON is explicitly
+      requested by a DNS client by querying with the Structured DNS
+      Error EDNS option as specified in Section <xref
+      target="I-D.ietf-dnsop-structured-dns-error" section="5.4"
+      sectionFormat="bare">Structured DNS Error (SDE) EDNS(0) Option
+      Format</xref> of <xref
+      target="I-D.ietf-dnsop-structured-dns-error" />, a nameserver that
+      also implements <xref target="I-D.ietf-dnsop-structured-dns-error"
+      /> MAY NOT return the EDE-EXTRA-TEXT-LANGUAGE, FILTERING-CONTACT,
+      FILTERING-ORGANIZATION, and FILTERING-DB EDNS options in responses
+      to such queries, and MAY instead process the query as specified in
+      Section <xref target="I-D.ietf-dnsop-structured-dns-error"
+      section="5.2" sectionFormat="bare">Server Generating
+      Response</xref> of <xref
+      target="I-D.ietf-dnsop-structured-dns-error" />.</t>
+
+      <t>A nameserver MUST NOT include the EDE-EXTRA-TEXT-LANGUAGE,
+      FILTERING-CONTACT, FILTERING-ORGANIZATION, and FILTERING-DB EDNS
+      options as well as Structured Error Data for Filtered DNS JSON in
+      a single response. It should pick one, and the choice can be made
+      based on whether the DNS client's query contained the Structured
+      DNS Error option.</t>
+
+    </section>
+
+    <section>
+
       <name>Security considerations</name>
 
       <t>It is strongly RECOMMENDED that clients use DNS transport
@@ -473,7 +503,7 @@ Domain Name System (response)
       </references>
       <references>
         <name>Informative references</name>
-        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-dnsop-structured-dns-error-18.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-dnsop-structured-dns-error-19.xml"/>
       </references>
     </references>
   </back>
