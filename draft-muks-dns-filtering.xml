@@ -60,11 +60,10 @@
 
     <abstract>
 
-      <t>This memo documents EDNS options, EDNS Extended DNS Errors
-      INFO-CODE values, and methods that can be used to return
-      information about filtered, blocked, or censored DNS responses. It
-      complements the information provided in EDNS Extended DNS Error
-      options <xref target="RFC8914"/>.</t>
+      <t>This memo documents EDNS options and methods that can be used
+      to return information about filtered, blocked, or censored DNS
+      responses. It complements the information provided in EDNS
+      Extended DNS Error options <xref target="RFC8914"/>.</t>
 
     </abstract>
 
