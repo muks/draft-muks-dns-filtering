@@ -275,7 +275,7 @@
 
       <name>Example DNS message</name>
 
-      <t>The following is a sample packet dissection from Wireshark of a
+      <t>The following is a sample packet dissection by Wireshark of a
       DNS response message containing the EDE-EXTRA-TEXT-LANGUAGE,
       FILTERING-CONTACT, FILTERING-ORGANIZATION, and FILTERING-DB EDNS
       options. This example was taken from the DNS responses generated
