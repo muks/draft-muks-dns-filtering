@@ -273,6 +273,118 @@
 
     <section>
 
+      <name>Example DNS message</name>
+
+      <t>The following is a sample packet dissection from Wireshark of a
+      DNS response message containing the EDE-EXTRA-TEXT-LANGUAGE,
+      FILTERING-CONTACT, FILTERING-ORGANIZATION, and FILTERING-DB EDNS
+      options. This example was taken from the DNS responses generated
+      in one of Loop's system tests. It was generated in response to RPZ
+      processing which returned an NXDOMAIN RCODE because it was blocked
+      due to response policy.</t>
+
+      <sourcecode>
+Domain Name System (response)
+    Transaction ID: 0x8092
+    Flags: 0x8403 Standard query response, No such name
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority
+                              for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...0 .... .... = Recursion desired: Don't do query
+                              recursively
+        .... .... 0... .... = Recursion available: Server can't do
+                              recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority
+                              portion was not authenticated by the
+                              server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0011 = Reply code: No such name (3)
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 2
+    Queries
+        test1a.example.com: type A, class IN
+            Name: test1a.example.com
+            [Name Length: 18]
+            [Label Count: 3]
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+    Additional records
+        rpz1.example.com: type SOA, class IN, mname &lt;Root&gt;
+            Name: rpz1.example.com
+            Type: SOA (6) (Start Of a zone of Authority)
+            Class: IN (0x0001)
+            Time to live: 300 (5 minutes)
+            Data length: 22
+            Primary name server: &lt;Root&gt;
+            Responsible authority's mailbox: &lt;Root&gt;
+            [Responsible authority's mailbox name: &lt;Root&gt;]
+            Serial Number: 1
+            Refresh Interval: 600 (10 minutes)
+            Retry Interval: 600 (10 minutes)
+            Expire limit: 1200 (20 minutes)
+            Minimum TTL: 600 (10 minutes)
+        &lt;Root&gt;: type OPT
+            Name: &lt;Root&gt;
+            Type: OPT (41)
+            UDP payload size: 4096
+            Higher bits in extended RCODE: 0x00
+            EDNS0 version: 0
+            Z: 0x0000
+                0... .... .... .... = DO bit: Cannot handle DNSSEC
+                                      security RRs
+                .000 0000 0000 0000 = Reserved: 0x0000
+            Data length: 158
+            Option: Extended DNS Error
+                Option Code: Extended DNS Error (15)
+                Option Length: 48
+                Option Data: 000f5175657279206f7220616e737765722077
+                             617320626c6f636b656420627920726573706f
+                             6e736520706f6c696379
+                Info Code: Blocked (15)
+                Extra Text: Query or answer was blocked by response
+                            policy
+            Option: EDE-EXTRA-TEXT-LANGUAGE
+                Option Code: EDE-EXTRA-TEXT-LANGUAGE (65102)
+                Option Length: 2
+                Option Data: 656e
+                Language: en
+            Option: FILTERING-ORGANIZATION
+                Option Code: FILTERING-ORGANIZATION (65104)
+                Option Length: 24
+                Option Data: 546865204578616d706c65204f7267616e697a
+                             6174696f6e
+                Organization: The Example Organization
+            Option: FILTERING-DB
+                Option Code: FILTERING-DB (65105)
+                Option Length: 12
+                Option Data: 476f7665726e6d656e742031
+                Database: Government 1
+            Option: FILTERING-CONTACT
+                Option Code: FILTERING-CONTACT (65103)
+                Option Length: 26
+                Option Data: 6d61696c746f3a737570706f7274406578616d
+                             706c652e636f6d
+                Contact: mailto:support@example.com
+            Option: FILTERING-CONTACT
+                Option Code: FILTERING-CONTACT (65103)
+                Option Length: 22
+                Option Data: 736970733a68656c6c6f406578616d706c652e
+                             636f6d
+                Contact: sips:hello@example.com
+      </sourcecode>
+
+      <t>TBD: Replace OPTION-CODEs in the example from the experimental
+      use space with IANA assigned ones when they are available.</t>
+
+    </section>
+
+    <section>
+
       <name>Security considerations</name>
 
       <t>It is strongly RECOMMENDED that clients use DNS transport
