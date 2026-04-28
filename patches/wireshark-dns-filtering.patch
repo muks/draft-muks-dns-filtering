@@ -1,6 +1,6 @@
 diff -ru wireshark-4.6.4.orig/epan/dissectors/packet-dns.c wireshark-4.6.4/epan/dissectors/packet-dns.c
 --- wireshark-4.6.4.orig/epan/dissectors/packet-dns.c	2026-02-26 01:45:46.000000000 +0800
-+++ wireshark-4.6.4/epan/dissectors/packet-dns.c	2026-04-23 15:06:17.736959557 +0800
++++ wireshark-4.6.4/epan/dissectors/packet-dns.c	2026-04-28 10:55:11.897085169 +0800
 @@ -531,6 +531,10 @@
  static int hf_dns_opt_zoneversion_type;
  static int hf_dns_opt_zoneversion_soa;
@@ -16,10 +16,10 @@ diff -ru wireshark-4.6.4.orig/epan/dissectors/packet-dns.c wireshark-4.6.4/epan/
  #define O_EXT_ERROR     15              /* Extended DNS Errors (RFC8914) */
  #define O_REPORT_CHANNEL 18             /* DNS Error Reporting (RFC9567) */
  #define O_ZONEVERSION   19              /* DNS Zone Version (ZONEVERSION) Option (RFC9660) */
-+#define O_EDE_EXTRA_TEXT_LANGUAGE 65102 /* Extended DNS Error EXTRA-TEXT language */
-+#define O_FILTERING_CONTACT 65103       /* FILTERING-CONTACT */
-+#define O_FILTERING_ORGANIZATION 65104  /* FILTERING-ORGANIZATION */
-+#define O_FILTERING_DB 65105            /* FILTERING-DB */
++#define O_EDE_EXTRA_TEXT_LANGUAGE 22    /* Extended DNS Error EXTRA-TEXT language */
++#define O_FILTERING_CONTACT 23          /* FILTERING-CONTACT */
++#define O_FILTERING_ORGANIZATION 24     /* FILTERING-ORGANIZATION */
++#define O_FILTERING_DB 25               /* FILTERING-DB */
  
  #define MIN_DNAME_LEN    2              /* minimum domain name length */
  
