@@ -462,9 +462,9 @@ options {
 
       <name>IANA considerations</name>
 
-      <t>IANA is requested to allocate the following code points in the
-      "DNS EDNS0 Option Codes (OPT)" registry in the "Domain Name System
-      (DNS) Parameters" registry group.</t>
+      <t>IANA has allocated the following code points in the "DNS EDNS0
+      Option Codes (OPT)" registry in the "Domain Name System (DNS)
+      Parameters" registry group.</t>
       
       <table>
         <thead>
@@ -477,25 +477,25 @@ options {
         </thead>
         <tbody>
           <tr>
-            <td>TBD</td>
+            <td>22</td>
             <td>EDE-EXTRA-TEXT-LANGUAGE</td>
             <td>Optional</td>
             <td>See <xref target="sec_ede_extra_text_language"/>.</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>23</td>
             <td>FILTERING-CONTACT</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_contact"/>.</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>24</td>
             <td>FILTERING-ORGANIZATION</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_organization"/>.</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>25</td>
             <td>FILTERING-DB</td>
             <td>Optional</td>
             <td>See <xref target="sec_filtering_db"/>.</td>
