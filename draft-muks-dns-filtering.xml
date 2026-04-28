@@ -414,8 +414,7 @@ options {
 
     <section>
 
-      <name>Interoperability with Structured Error Data for Filtered DNS
-      JSON</name>
+      <name>Interoperability with Structured Error Data for Filtered DNS</name>
 
       <t>When Structured Error Data for Filtered DNS JSON is explicitly
       requested by a DNS client by querying with the Structured DNS
