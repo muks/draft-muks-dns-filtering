@@ -285,7 +285,7 @@
 
       <sourcecode>
 Domain Name System (response)
-    Transaction ID: 0x8092
+    Transaction ID: 0x3172
     Flags: 0x8403 Standard query response, No such name
         1... .... .... .... = Response: Message is a response
         .000 0... .... .... = Opcode: Standard query (0)
@@ -338,7 +338,7 @@ Domain Name System (response)
                 0... .... .... .... = DO bit: Cannot handle DNSSEC
                                       security RRs
                 .000 0000 0000 0000 = Reserved: 0x0000
-            Data length: 158
+            Data length: 180
             Option: Extended DNS Error
                 Option Code: Extended DNS Error (15)
                 Option Length: 48
@@ -349,37 +349,35 @@ Domain Name System (response)
                 Extra Text: Query or answer was blocked by response
                             policy
             Option: EDE-EXTRA-TEXT-LANGUAGE
-                Option Code: EDE-EXTRA-TEXT-LANGUAGE (65102)
+                Option Code: EDE-EXTRA-TEXT-LANGUAGE (22)
                 Option Length: 2
                 Option Data: 656e
                 Language: en
             Option: FILTERING-ORGANIZATION
-                Option Code: FILTERING-ORGANIZATION (65104)
+                Option Code: FILTERING-ORGANIZATION (24)
                 Option Length: 24
                 Option Data: 546865204578616d706c65204f7267616e697a
                              6174696f6e
                 Organization: The Example Organization
             Option: FILTERING-DB
-                Option Code: FILTERING-DB (65105)
-                Option Length: 12
-                Option Data: 476f7665726e6d656e742031
-                Database: Government 1
+                Option Code: FILTERING-DB (25)
+                Option Length: 34
+                Option Data: 476f7665726e6d656e7420416e74692d506972
+                             61637920506f6c6963696573202331
+                Database: Government Anti-Piracy Policies #1
             Option: FILTERING-CONTACT
-                Option Code: FILTERING-CONTACT (65103)
+                Option Code: FILTERING-CONTACT (23)
                 Option Length: 26
                 Option Data: 6d61696c746f3a737570706f7274406578616d
                              706c652e636f6d
                 Contact: mailto:support@example.com
             Option: FILTERING-CONTACT
-                Option Code: FILTERING-CONTACT (65103)
+                Option Code: FILTERING-CONTACT (23)
                 Option Length: 22
                 Option Data: 736970733a68656c6c6f406578616d706c652e
                              636f6d
                 Contact: sips:hello@example.com
       </sourcecode>
-
-      <t>TBD: Replace OPTION-CODEs in the example from the experimental
-      use space with IANA assigned ones when they are available.</t>
 
       <t>For completeness, here is a snippet from a Loop
       <tt>named.conf</tt> configuration file, that was used to configure
@@ -401,7 +399,8 @@ options {
 
     response-policy {
         // The default intent is blocking.
-        zone "rpz1.example.com" filtering-db "Government 1";
+        zone "rpz1.example.com" filtering-db
+            "Government Anti-Piracy Policies #1";
         zone "rpz2.example.com" intent blocking;
         zone "rpz3.example.com" intent censoring;
         zone "rpz4.example.com" intent filtering;
